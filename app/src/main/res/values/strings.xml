@@ -1,3 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">HangmanApp</string>
+    <string name="title">Welcome to Hangman!</string>
+    <string name="play_button">Play</string>
+    <string name="rules_button">Rules</string>
+    <string name="change_language_button">Norwegian</string>
+    <string name="quit_button">Quit</string>
 </resources>
