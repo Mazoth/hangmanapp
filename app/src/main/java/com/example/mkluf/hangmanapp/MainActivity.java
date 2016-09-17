@@ -10,5 +10,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }
+    //For when the change_language button is pressed
+    public void changeLocale() {
+
+    }
 
 }
+

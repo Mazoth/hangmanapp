@@ -6,4 +6,5 @@
     <string name="change_language_button">Norwegian</string>
     <string name="quit_button">Quit</string>
     <string name="hangman_picture_desc">picture of a hanged man</string>
+    <string name="scoreboard_text">Vunnet:</string>
 </resources>

@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="title">Velkommen til hangman!</string>
-    <string name="play_button">Spill</string>
-    <string name="rules_button">Regler</string>
-    <string name="change_language_button">Engelsk</string>
-    <string name="quit_button">Avslutt</string>
+    <string-array name="possible_words">
+        <item>eple</item>
+        <item>appelsin</item>
+        <item>norge</item>
+        <item>kaffe</item>
+        <item>telefon</item>
+        <item>datamaskin</item>
+        <item>linjal</item>
+        <item>kort</item>
+        <item>musikk</item>
+        <item>england</item>
+    </string-array>
 </resources>
