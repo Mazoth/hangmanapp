@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
+import java.util.ArrayList;
 import java.util.Locale;
 
 public class GameActivity extends AppCompatActivity {
@@ -11,19 +12,18 @@ public class GameActivity extends AppCompatActivity {
     int loseScore;
     String randomWord;
     Locale locale;
+    ArrayList<String> gameWords;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
         if(savedInstanceState != null) {
             locale = (Locale) savedInstanceState.getSerializable("LOCALE");
-            System.out.println("not empty" + locale.getLanguage());
-            if (locale != null) {
+            if (!locale.equals(getResources().getConfiguration().locale)) {
                 ChangeLanguage.changeLanguage(GameActivity.this, locale);
             }
         }
         locale = getResources().getConfiguration().locale;
-        System.out.println(locale.getLanguage());
     }
 
     public void fillKeyboard() {

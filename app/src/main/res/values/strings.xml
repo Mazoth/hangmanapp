@@ -7,4 +7,5 @@
     <string name="quit_button">Quit</string>
     <string name="hangman_picture_desc">picture of a hanged man</string>
     <string name="scoreboard_text">Vunnet:</string>
+    <string name="placeholder">Placeholder</string>
 </resources>

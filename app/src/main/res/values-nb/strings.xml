@@ -6,5 +6,5 @@
     <string name="change_language_button">Engelsk</string>
     <string name="quit_button">Avslutt</string>
     <string name="next_button">Neste</string>
-
+    <string name="placeholder">Stedholder</string>
 </resources>

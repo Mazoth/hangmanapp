@@ -79,7 +79,7 @@
         android:layout_alignEnd="@+id/Score_Container"
         android:layout_alignStart="@+id/Score_Container"
         android:layout_below="@+id/hangman_picture_container"
-        android:text="Placeholder"
+        android:text="@string/placeholder"
         android:textAlignment="center"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
