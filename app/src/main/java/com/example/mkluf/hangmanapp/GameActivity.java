@@ -17,6 +17,7 @@ public class GameActivity extends AppCompatActivity {
     int winScore;
     int loseScore;
     String randomWord;
+    Button selectedButton;
     Locale locale;
     ArrayList<String> gameWords;
 
@@ -115,5 +116,9 @@ public class GameActivity extends AppCompatActivity {
         super.onPause();
         System.out.println("er på pausa");
         System.out.println(getResources().getConfiguration().locale.getLanguage());
+    }
+
+    public boolean guessLetter(char guessedLetter) {
+        return true;
     }
 }
