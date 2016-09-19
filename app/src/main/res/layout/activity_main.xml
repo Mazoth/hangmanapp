@@ -25,7 +25,7 @@
         android:id="@+id/button_column_container"
         android:layout_width="@dimen/main_activity_button_horizontal_size"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/quit_button"
+        android:layout_above="@+id/quit_game_button"
         android:layout_centerHorizontal="true"
         android:layout_gravity="center_vertical"
         android:layout_marginBottom="34dp"
@@ -57,7 +57,7 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/quit_button"
+        android:id="@+id/quit_game_button"
         android:layout_width="130dp"
         android:layout_height="@dimen/main_activity_button_vertical_size"
         android:layout_alignParentBottom="true"

@@ -8,4 +8,8 @@
     <string name="hangman_picture_desc">picture of a hanged man</string>
     <string name="scoreboard_text">Vunnet:</string>
     <string name="placeholder">Placeholder</string>
+    <string name="close_activity">Quit game</string>
+    <string name="are_you_sure">Are you sure? Score will be lost!</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
 </resources>
