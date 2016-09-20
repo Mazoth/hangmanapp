@@ -77,7 +77,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Large Text"
-        android:id="@+id/textView"
+        android:id="@+id/current_word_textview"
         android:layout_alignBottom="@+id/hangman_picture_container"
         android:layout_centerHorizontal="true" />
 
@@ -120,5 +120,13 @@
         android:layout_toRightOf="@+id/Score_Container"
         android:layout_above="@+id/hangman_picture_container"
         android:paddingTop="5dp" />
+
+    <MultiAutoCompleteTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New MultiAutoCompleteTextView"
+        android:id="@+id/multiAutoCompleteTextView"
+        android:layout_alignTop="@+id/current_word_textview"
+        android:layout_toEndOf="@+id/quit_game_button" />
 
 </RelativeLayout>

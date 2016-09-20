@@ -6,21 +6,29 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
+
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Locale;
 
 public class GameActivity extends AppCompatActivity {
-    int winScore;
-    int loseScore;
-    String randomWord;
-    Button selectedButton;
-    Locale locale;
-    ArrayList<String> gameWords;
-
+    private int winScore;
+    private int loseScore;
+    private int correctGuesses, wrongGuesses;
+    private int round;
+    private String currentWord;
+    private String[] currentWordParted;
+    private Locale locale;
+    private String[] gameWords;
+    private String[] wordDisplayLetters;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,7 +40,7 @@ public class GameActivity extends AppCompatActivity {
             }
         }
         locale = getResources().getConfiguration().locale;
-        fillKeyboard();
+
         ImageButton quit_game_button = (ImageButton) findViewById(R.id.quit_game_button);
         quit_game_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -41,6 +49,11 @@ public class GameActivity extends AppCompatActivity {
             }
         });
 
+        fillKeyboard();
+        gameWords = getResources().getStringArray(R.array.possible_words);
+        Collections.shuffle(Arrays.asList(gameWords));
+        round = 0; //Start at first round.
+        boolean removeMe = newGame();
     }
 
     public void fillKeyboard() {
@@ -51,6 +64,18 @@ public class GameActivity extends AppCompatActivity {
 
         GridView keyboard1 = (GridView) findViewById(R.id.keyboard_container_1);
         GridView keyboard2 = (GridView) findViewById(R.id.keyboard_container_2);
+
+        keyboard1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 //        keyboard1.setOnTouchListener(new View.OnTouchListener() {
 //            @Override
 //            public boolean onTouch(View v, MotionEvent event) {
@@ -95,9 +120,52 @@ public class GameActivity extends AppCompatActivity {
                 else buttonSet2.add(norButton);
             }
         }
-        Button confirmButton = new Button(this);
         keyboard1.setAdapter(new ButtonAdapter(buttonSet1));
         keyboard2.setAdapter(new ButtonAdapter(buttonSet2));
+    }
+
+    public boolean newGame() {
+        if(round < gameWords.length) currentWord = gameWords[round]; //Only have 10 rounds
+        else return false;
+        correctGuesses = 0;
+        wrongGuesses = 0;
+        currentWordParted = currentWord.split("(?!^)");
+        wordDisplayLetters = new String[currentWordParted.length];
+        for(int i = 0; i < wordDisplayLetters.length; i++) wordDisplayLetters[i] = " _ "; //Fill the word with _'s
+        replaceTextView(wordDisplayLetters);
+        return true;
+    }
+    
+    public boolean guessLetter(String selectedLetter) {
+        int temp = correctGuesses; //In case there are duplicates
+        for(int i = 0; i < currentWordParted.length; i++) {
+            if (selectedLetter.equals(currentWordParted[i])) {
+                correctGuesses++;
+                wordDisplayLetters[i] = selectedLetter;
+            }
+        }
+        if(temp != correctGuesses ) {
+            // In this case, there was a new letter found and
+            // we update the textview with the new correct letters
+            replaceTextView(wordDisplayLetters);
+            return true;
+        }
+        //In this case, we need to add more bits to the hangman
+        wrongGuesses++;
+
+
+        return false;
+    }
+
+    public void hangTheManMore() {
+        ImageView hangedMan = (ImageView) findViewById(R.id.hangman_picture_container);
+        hangedMan.setImageResource(R.drawable.hangman_1st_wrong);
+    }
+
+    public void replaceTextView(String[] letters) {
+        TextView textView = (TextView) findViewById(R.id.current_word_textview);
+        textView.setText(Arrays.toString(letters)
+                .replace("[", "").replace(",", "").replace("]", ""));
     }
 
     @Override
