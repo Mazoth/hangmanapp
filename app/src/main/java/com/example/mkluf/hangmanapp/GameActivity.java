@@ -1,9 +1,7 @@
 package com.example.mkluf.hangmanapp;
 
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
@@ -12,6 +10,7 @@ import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import java.util.ArrayList;
@@ -68,7 +67,7 @@ public class GameActivity extends AppCompatActivity {
         keyboard1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
+                Toast.makeText(GameActivity.this, "" + i, Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -103,9 +102,11 @@ public class GameActivity extends AppCompatActivity {
             characterButton = new Button(this);
             characterButton.setText(character + "");
             characterButton.setId(character);
-            if (i++ % 8 < 4) {
-                buttonSet1.add(characterButton);
-            } else buttonSet2.add(characterButton);
+            characterButton.setFocusable(false);
+            characterButton.setFocusableInTouchMode(false);
+            //This if-statement fills every 4th
+            if (i++ % 8 < 4) buttonSet1.add(characterButton);
+            else buttonSet2.add(characterButton);
         }
 
         //In this case the locale is norwegian, and we need to add Æ, Ø and Å to the grid.
@@ -115,6 +116,8 @@ public class GameActivity extends AppCompatActivity {
                 Button norButton = new Button(this);
                 norButton.setText(ch+"");
                 norButton.setId(ch);
+                norButton.setFocusable(false);
+                norButton.setFocusableInTouchMode(false);
                 //This test is to add the button to the proper location in the UI
                 if (ch != 'Å') buttonSet1.add(norButton);
                 else buttonSet2.add(norButton);
@@ -122,11 +125,22 @@ public class GameActivity extends AppCompatActivity {
         }
         keyboard1.setAdapter(new ButtonAdapter(buttonSet1));
         keyboard2.setAdapter(new ButtonAdapter(buttonSet2));
+        keyboard1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                System.out.println(i + "");
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
     }
 
     public boolean newGame() {
-        if(round < gameWords.length) currentWord = gameWords[round]; //Only have 10 rounds
-        else return false;
+        if(round < gameWords.length) currentWord = gameWords[round]; //Only have 10 rounds,
+        else return false;                                           //initially, but this makes it scaleable
         correctGuesses = 0;
         wrongGuesses = 0;
         currentWordParted = currentWord.split("(?!^)");
@@ -150,16 +164,18 @@ public class GameActivity extends AppCompatActivity {
             replaceTextView(wordDisplayLetters);
             return true;
         }
-        //In this case, we need to add more bits to the hangman
+        //In this case, we need to add more pieces to the gallow
         wrongGuesses++;
-
-
+        hangTheManMore();
         return false;
     }
 
     public void hangTheManMore() {
         ImageView hangedMan = (ImageView) findViewById(R.id.hangman_picture_container);
-        hangedMan.setImageResource(R.drawable.hangman_1st_wrong);
+        //My pictures have a pattern where the file id = "hangman_state_" + int
+        int nextPic = getResources()
+                .getIdentifier("hangman_state_" + wrongGuesses, "id", getPackageName());
+        hangedMan.setImageResource(nextPic);
     }
 
     public void replaceTextView(String[] letters) {

@@ -77,7 +77,7 @@
         android:layout_alignEnd="@+id/current_word"
         android:layout_below="@+id/Score_Container"
         android:layout_above="@+id/current_word"
-        android:src="@drawable/hangman_1st_wrong" />
+        android:src="@null" />
 
     <GridView
         android:layout_width="wrap_content"

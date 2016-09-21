@@ -19,7 +19,7 @@
         android:layout_alignStart="@+id/button_column_container"
         android:contentDescription="@string/hangman_picture_desc"
         android:cropToPadding="false"
-        android:src="@drawable/hangman_game_over" />
+        android:src="@drawable/hangman_state_8" />
 
     <LinearLayout
         android:id="@+id/button_column_container"

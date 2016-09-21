@@ -64,7 +64,7 @@
         android:layout_alignStart="@+id/Score_Container"
         android:layout_below="@+id/Score_Container"
         android:contentDescription="Current hangman state"
-        android:src="@drawable/hangman_1st_wrong"
+        android:src="@null"
         android:longClickable="false"
         android:adjustViewBounds="false"
         android:clickable="false"
@@ -97,14 +97,18 @@
             android:layout_height="wrap_content"
             android:id="@+id/keyboard_container_1"
             android:numColumns="4"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:clickable="true"
+            android:descendantFocusability="beforeDescendants"/>
 
         <GridView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/keyboard_container_2"
             android:numColumns="4"
-            android:layout_weight="1"></GridView>
+            android:layout_weight="1"
+            android:clickable="true"
+            android:descendantFocusability="beforeDescendants"/>
 
     </LinearLayout>
 
