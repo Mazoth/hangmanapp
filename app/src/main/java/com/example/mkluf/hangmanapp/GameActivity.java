@@ -1,7 +1,11 @@
 package com.example.mkluf.hangmanapp;
 
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
@@ -18,16 +22,18 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Locale;
 
-public class GameActivity extends AppCompatActivity {
+public class GameActivity extends AppCompatActivity implements View.OnClickListener {
     private int winScore;
     private int loseScore;
     private int correctGuesses, wrongGuesses;
     private int round;
+    private int maxRounds;
     private String currentWord;
     private String[] currentWordParted;
     private Locale locale;
     private String[] gameWords;
     private String[] wordDisplayLetters;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,7 +58,7 @@ public class GameActivity extends AppCompatActivity {
         gameWords = getResources().getStringArray(R.array.possible_words);
         Collections.shuffle(Arrays.asList(gameWords));
         round = 0; //Start at first round.
-        boolean removeMe = newGame();
+        maxRounds = gameWords.length;
     }
 
     public void fillKeyboard() {
@@ -100,8 +106,9 @@ public class GameActivity extends AppCompatActivity {
         boolean isEnglish = locale.getLanguage().equals("en");
         for (char character = 'A'; character <= 'Z'; character++) {
             characterButton = new Button(this);
-            characterButton.setText(character + "");
+            characterButton.setText(character+"");
             characterButton.setId(character);
+            characterButton.setOnClickListener(this);
             characterButton.setFocusable(false);
             characterButton.setFocusableInTouchMode(false);
             //This if-statement fills every 4th
@@ -118,6 +125,7 @@ public class GameActivity extends AppCompatActivity {
                 norButton.setId(ch);
                 norButton.setFocusable(false);
                 norButton.setFocusableInTouchMode(false);
+                norButton.setOnClickListener(this);
                 //This test is to add the button to the proper location in the UI
                 if (ch != 'Å') buttonSet1.add(norButton);
                 else buttonSet2.add(norButton);
@@ -125,56 +133,62 @@ public class GameActivity extends AppCompatActivity {
         }
         keyboard1.setAdapter(new ButtonAdapter(buttonSet1));
         keyboard2.setAdapter(new ButtonAdapter(buttonSet2));
-        keyboard1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                System.out.println(i + "");
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
     }
 
-    public boolean newGame() {
-        if(round < gameWords.length) currentWord = gameWords[round]; //Only have 10 rounds,
-        else return false;                                           //initially, but this makes it scaleable
+    public void newGame() {
+        //Only have 10 rounds in this example, but this makes the game scaleable
+        currentWord = gameWords[round];
         correctGuesses = 0;
         wrongGuesses = 0;
         currentWordParted = currentWord.split("(?!^)");
         wordDisplayLetters = new String[currentWordParted.length];
-        for(int i = 0; i < wordDisplayLetters.length; i++) wordDisplayLetters[i] = " _ "; //Fill the word with _'s
+        for (int i = 0; i < wordDisplayLetters.length; i++)
+            wordDisplayLetters[i] = "_"; //Fill the word with _'s
         replaceTextView(wordDisplayLetters);
-        return true;
     }
-    
-    public boolean guessLetter(String selectedLetter) {
+
+    public void guessLetter(Button selectedButton) {
+        char guess = selectedButton.getText().toString().charAt(0); // Converts String to char
+        guess = Character.toLowerCase(guess);
         int temp = correctGuesses; //In case there are duplicates
-        for(int i = 0; i < currentWordParted.length; i++) {
-            if (selectedLetter.equals(currentWordParted[i])) {
+        for (int i = 0; i < currentWordParted.length; i++) {
+            if (guess == currentWordParted[i].charAt(0)) {
                 correctGuesses++;
-                wordDisplayLetters[i] = selectedLetter;
+                wordDisplayLetters[i] = guess+"";
             }
         }
-        if(temp != correctGuesses ) {
+        if (temp != correctGuesses) {
             // In this case, there was a new letter found and
             // we update the textview with the new correct letters
+            selectedButton.getBackground().setColorFilter(0xFF669900, PorterDuff.Mode.MULTIPLY);
             replaceTextView(wordDisplayLetters);
-            return true;
         }
-        //In this case, we need to add more pieces to the gallow
+        if(correctGuesses == currentWordParted.length) win();
+        //If the letter is wrong, the background color of the button is changed to red
+        //and another part gets added to the hangman.
+        selectedButton.getBackground().setColorFilter(0xFFF44366, PorterDuff.Mode.MULTIPLY);
         wrongGuesses++;
         hangTheManMore();
-        return false;
+        if(wrongGuesses == currentWordParted.length) lose();
+    }
+
+    private void lose() {
+    }
+
+    public void win() {
+        round++;
+        if(round < maxRounds) {
+            Toast.makeText(GameActivity.this,
+                    getResources().getString(R.string.guessed_correct_message),
+                    Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void hangTheManMore() {
         ImageView hangedMan = (ImageView) findViewById(R.id.hangman_picture_container);
         //My pictures have a pattern where the file id = "hangman_state_" + int
         int nextPic = getResources()
-                .getIdentifier("hangman_state_" + wrongGuesses, "id", getPackageName());
+                .getIdentifier("hangman_state_" + wrongGuesses, "drawable", getPackageName());
         hangedMan.setImageResource(nextPic);
     }
 
@@ -191,18 +205,8 @@ public class GameActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        System.out.println("er på pausa");
-        System.out.println(getResources().getConfiguration().locale.getLanguage());
-    }
-
-    public boolean guessLetter(char guessedLetter) {
-        return true;
+    public void onClick(View view) {
+        Button selectedButton = (Button) view;
+        if(!guessLetter(selectedButton)) hangTheManMore();
     }
 }
