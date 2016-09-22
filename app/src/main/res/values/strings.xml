@@ -9,7 +9,7 @@
     <string name="scoreboard_text">Vunnet:</string>
     <string name="placeholder">Placeholder</string>
     <string name="close_activity">Quit game</string>
-    <string name="are_you_sure">Are you sure? Score will be lost!</string>
+    <string name="are_you_sure">Are you sure you would like to quit the game? Your score will be lost!</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="guessed_correct_message">Correct! New word!</string>

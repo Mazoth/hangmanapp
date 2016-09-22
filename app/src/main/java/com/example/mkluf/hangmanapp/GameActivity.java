@@ -1,5 +1,6 @@
 package com.example.mkluf.hangmanapp;
 
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
@@ -7,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -16,6 +18,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -50,15 +54,24 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         quit_game_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish(); //TODO: AlertDialog that confirms the exit.
+                new AlertDialog.Builder(GameActivity.this)
+                        .setTitle(getResources().getString(R.string.close_activity))
+                        .setMessage(getResources().getString(R.string.are_you_sure))
+                        .setPositiveButton(getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                finish();
+                            }
+                        })
+                        .setNegativeButton(getResources().getString(R.string.no), null)
+                        .setIcon(android.R.drawable.ic_dialog_alert).show();
             }
         });
-
-        fillKeyboard();
         gameWords = getResources().getStringArray(R.array.possible_words);
         Collections.shuffle(Arrays.asList(gameWords));
         round = 0; //Start at first round.
         maxRounds = gameWords.length;
+        newGame();
     }
 
     public void fillKeyboard() {
@@ -70,35 +83,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         GridView keyboard1 = (GridView) findViewById(R.id.keyboard_container_1);
         GridView keyboard2 = (GridView) findViewById(R.id.keyboard_container_2);
 
-        keyboard1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(GameActivity.this, "" + i, Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-//        keyboard1.setOnTouchListener(new View.OnTouchListener() {
-//            @Override
-//            public boolean onTouch(View v, MotionEvent event) {
-//                if (event.getAction() == MotionEvent.ACTION_MOVE) {
-//                    return true;
-//                }
-//                return false;
-//            }
-//        });
-//        keyboard2.setOnTouchListener(new View.OnTouchListener() {
-//            @Override
-//            public boolean onTouch(View v, MotionEvent event) {
-//                if (event.getAction() == MotionEvent.ACTION_MOVE) {
-//                    return true;
-//                }
-//                return false;
-//            }
-//        });
         Button characterButton = null;
         ArrayList<Button> buttonSet1 = new ArrayList<Button>();
         ArrayList<Button> buttonSet2 = new ArrayList<Button>();
@@ -106,12 +90,12 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         boolean isEnglish = locale.getLanguage().equals("en");
         for (char character = 'A'; character <= 'Z'; character++) {
             characterButton = new Button(this);
-            characterButton.setText(character+"");
+            characterButton.setText(character + "");
             characterButton.setId(character);
             characterButton.setOnClickListener(this);
             characterButton.setFocusable(false);
             characterButton.setFocusableInTouchMode(false);
-            //This if-statement fills every 4th
+            //This if-statement fills every 4 buttons into the respective list
             if (i++ % 8 < 4) buttonSet1.add(characterButton);
             else buttonSet2.add(characterButton);
         }
@@ -121,7 +105,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             char[] norwegianLetters = {'Æ', 'Ø', 'Å'};
             for (char ch : norwegianLetters) {
                 Button norButton = new Button(this);
-                norButton.setText(ch+"");
+                norButton.setText(ch + "");
                 norButton.setId(ch);
                 norButton.setFocusable(false);
                 norButton.setFocusableInTouchMode(false);
@@ -137,6 +121,9 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
     public void newGame() {
         //Only have 10 rounds in this example, but this makes the game scaleable
+        fillKeyboard();
+        ImageView hangedManReset = (ImageView) findViewById(R.id.hangman_picture_container);
+        hangedManReset.setImageResource(0);
         currentWord = gameWords[round];
         correctGuesses = 0;
         wrongGuesses = 0;
@@ -147,14 +134,15 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         replaceTextView(wordDisplayLetters);
     }
 
-    public void guessLetter(Button selectedButton) {
+    public boolean guessLetter(Button selectedButton) {
         char guess = selectedButton.getText().toString().charAt(0); // Converts String to char
         guess = Character.toLowerCase(guess);
+        selectedButton.setOnClickListener(null); //Makes the already used letter un clickable
         int temp = correctGuesses; //In case there are duplicates
         for (int i = 0; i < currentWordParted.length; i++) {
             if (guess == currentWordParted[i].charAt(0)) {
                 correctGuesses++;
-                wordDisplayLetters[i] = guess+"";
+                wordDisplayLetters[i] = guess + "";
             }
         }
         if (temp != correctGuesses) {
@@ -162,14 +150,16 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             // we update the textview with the new correct letters
             selectedButton.getBackground().setColorFilter(0xFF669900, PorterDuff.Mode.MULTIPLY);
             replaceTextView(wordDisplayLetters);
+            if (correctGuesses == currentWordParted.length) win();
+            return true;
         }
-        if(correctGuesses == currentWordParted.length) win();
         //If the letter is wrong, the background color of the button is changed to red
         //and another part gets added to the hangman.
         selectedButton.getBackground().setColorFilter(0xFFF44366, PorterDuff.Mode.MULTIPLY);
         wrongGuesses++;
         hangTheManMore();
-        if(wrongGuesses == currentWordParted.length) lose();
+        if (wrongGuesses == currentWordParted.length) lose();
+        return false;
     }
 
     private void lose() {
@@ -177,10 +167,13 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
     public void win() {
         round++;
-        if(round < maxRounds) {
-            Toast.makeText(GameActivity.this,
-                    getResources().getString(R.string.guessed_correct_message),
-                    Toast.LENGTH_SHORT).show();
+        if (round < maxRounds) {
+            toaster(getResources().getString(R.string.guessed_correct_message));
+            winScore++;
+            TextView textView = (TextView) findViewById(R.id.win_score_counter);
+            textView.setText(winScore+"");
+            newGame();
+        } else { //Then the player have beaten the game
         }
     }
 
@@ -207,6 +200,13 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View view) {
         Button selectedButton = (Button) view;
-        if(!guessLetter(selectedButton)) hangTheManMore();
+        guessLetter(selectedButton);
+    }
+
+    //Displays a short toast in the middle of the screen.
+    public void toaster(String message) {
+        Toast toast = Toast.makeText(GameActivity.this, message, Toast.LENGTH_SHORT);
+        toast.setGravity(Gravity.CENTER, 0, 0);
+        toast.show();
     }
 }

@@ -25,7 +25,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/win_score_number"
+            android:id="@+id/win_score_counter"
             android:textSize="35sp"
             android:textColor="#669900"
             android:minWidth="50dp"
@@ -45,7 +45,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="0"
-            android:id="@+id/lost_score_number"
+            android:id="@+id/lost_score_counter"
             android:layout_alignParentTop="true"
             android:layout_toEndOf="@+id/win_score_symbol"
             android:editable="false"
