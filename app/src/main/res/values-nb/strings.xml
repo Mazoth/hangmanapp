@@ -7,4 +7,10 @@
     <string name="quit_button">Avslutt</string>
     <string name="next_button">Neste</string>
     <string name="placeholder">Stedholder</string>
+    <string name="close_activity">Avslutt spill</string>
+    <string name="are_you_sure">Er du sikker på at du vil avslutte spillet? Din score blir ikke lagret!</string>
+    <string name="yes">Ja</string>
+    <string name="no">Nei</string>
+    <string name="guessed_correct_message">Riktig!</string>
+    <string name="guessed_wrong_message">Uff da! Ordet var: </string>
 </resources>
