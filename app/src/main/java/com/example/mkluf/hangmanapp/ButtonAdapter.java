@@ -5,10 +5,9 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
-public class ButtonAdapter extends BaseAdapter implements Serializable {
+public class ButtonAdapter extends BaseAdapter {
     private ArrayList<Button> buttonSet = null;
 
     public ButtonAdapter(ArrayList<Button> buttonSet) {
@@ -33,7 +32,7 @@ public class ButtonAdapter extends BaseAdapter implements Serializable {
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
         Button button;
-        if(view == null) button = buttonSet.get(i);
+        if (view == null) button = buttonSet.get(i);
         else button = (Button) view;
         return button;
     }
