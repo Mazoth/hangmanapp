@@ -5,9 +5,10 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class ButtonAdapter extends BaseAdapter {
+public class ButtonAdapter extends BaseAdapter implements Serializable {
     private ArrayList<Button> buttonSet = null;
 
     public ButtonAdapter(ArrayList<Button> buttonSet) {

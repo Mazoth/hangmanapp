@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="title">Welcome to Hangman!</string>
-    <string name="play_button">Play</string>
+    <string name="play_button">New Game</string>
     <string name="rules_button">Rules</string>
     <string name="change_language_button">Norwegian</string>
     <string name="quit_button">Quit</string>
     <string name="hangman_picture_desc">picture of a hanged man</string>
-    <string name="scoreboard_text">Vunnet:</string>
+    <string name="next_button">Next</string>
     <string name="placeholder">Placeholder</string>
     <string name="close_activity">Quit game</string>
     <string name="are_you_sure">Are you sure you would like to quit the game? Your score will be lost!</string>
@@ -14,4 +14,7 @@
     <string name="no">No</string>
     <string name="guessed_correct_message">Correct! New word!</string>
     <string name="guessed_wrong_message">Whoops! The word was: </string>
+    <string name="won_the_game_title">I am out</string>
+    <string name="you_beat_the_game_message">You reached the end of the road! Play again?</string>
+    <string name="play_again_message">! Play again?</string>
 </resources>
