@@ -1,35 +1,26 @@
 package com.example.mkluf.hangmanapp;
 
-import android.app.Dialog;
-import android.app.DialogFragment;
 import android.content.DialogInterface;
-import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
-import android.support.annotation.IntegerRes;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.text.format.Time;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
+//import android.widget.Toast;
 
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.List;
 import java.util.Locale;
 
 public class GameActivity extends AppCompatActivity implements View.OnClickListener {
@@ -108,9 +99,9 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         GridView keyboard1 = (GridView) findViewById(R.id.keyboard_container_1);
         GridView keyboard2 = (GridView) findViewById(R.id.keyboard_container_2);
 
-        Button characterButton = null;
-        ArrayList<Button> buttonSet1 = new ArrayList<Button>();
-        ArrayList<Button> buttonSet2 = new ArrayList<Button>();
+        Button characterButton;
+        ArrayList<Button> buttonSet1 = new ArrayList<>();
+        ArrayList<Button> buttonSet2 = new ArrayList<>();
         ArrayList<Character> characters = new ArrayList<>();
         int i = 0;
         boolean isEnglish = locale.getLanguage().equals("en");
@@ -124,7 +115,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         //Looping through the whole ArrayList, 28 letters if the locale is English, 31 otherwise
         for (char character : characters) {
             characterButton = new Button(this);
-            characterButton.setText(character + "");
+            characterButton.setText(Character.toString(character));
             characterButton.setId(character);
             characterButton.setOnClickListener(this);
             characterButton.setFocusable(false);
@@ -244,7 +235,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                restartGame();
+                                resetGame();
                             }
                         })
                 .setNegativeButton(getResources().getString(R.string.no),
@@ -257,7 +248,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 .setOnCancelListener(new DialogInterface.OnCancelListener() {
                     @Override
                     public void onCancel(DialogInterface dialogInterface) {
-                        restartGame();
+                        resetGame();
                     }
                 }).show();
     }
@@ -270,7 +261,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         hangedMan.setImageResource(nextPic);
     }
 
-    public void restartGame() {
+    public void resetGame() {
         winScore = 0;
         changeATextView(R.id.win_score_counter, winScore + "");
         loseScore = 0;
@@ -319,10 +310,10 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         guessLetter(selectedButton);
     }
 
-    //Displays a short toast in the middle of the screen.
-    public void toaster(String message) {
-        Toast toast = Toast.makeText(GameActivity.this, message, Toast.LENGTH_SHORT);
-        toast.setGravity(Gravity.CENTER, 0, 0);
-        toast.show();
-    }
+//    //Displays a short toast in the middle of the screen.
+//    public void toaster(String message) {
+//        Toast toast = Toast.makeText(GameActivity.this, message, Toast.LENGTH_SHORT);
+//        toast.setGravity(Gravity.CENTER, 0, 0);
+//        toast.show();
+//    }
 }
