@@ -57,7 +57,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         maxWrongGuesses = 8;
         round = 0; //Start at first round.
         maxRounds = gameWords.length;
-        maxRounds = 2; //TODO: Remove this test condition
+        maxRounds = 2; //TODO: Remove this test condition upon delivery
         newGame();
     }
 
@@ -155,12 +155,11 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         char guess = selectedButton.getText().toString().charAt(0); // Converts String to char
         selectedButton.setOnClickListener(null); //Makes the already used letter un clickable
         int temp = correctGuesses; //In case there are duplicates
-        for (int i = 0; i < currentWordParted.length; i++) {
+        for (int i = 0; i < currentWordParted.length; i++)
             if (Character.toLowerCase(guess) == currentWordParted[i].charAt(0)) {
                 correctGuesses++;
                 wordDisplayLetters[i] = guess + "";
             }
-        }
         if (temp != correctGuesses) {
             // In this case, there was a new letter found and
             // we update the textview with the new correct letters
@@ -181,28 +180,25 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void lose() {
-        hangTheManMore();
         round++;
         loseScore++;
+        hangTheManMore();
         changeATextView(R.id.lost_score_counter, loseScore + "");
-        if (round < maxRounds) {
-//            toaster(getResources().getString(R.string.guessed_wrong_message) + currentWord);
-            nextGameDialog(false);
-        } else ranOutOfWordsDialog(); //Then it was the last round
+        if (round < maxRounds) nextGameDialog(false);
+        else ranOutOfWordsDialog(); //Then it was the last round
     }
 
     public void win() {
         round++;
         winScore++;
         changeATextView(R.id.win_score_counter, winScore + "");
-        if (round < maxRounds) {
-//            toaster(getResources().getString(R.string.guessed_correct_message) + currentWord);
-            nextGameDialog(true);
-        } else ranOutOfWordsDialog(); //Then the player have beaten the game
+        if (round < maxRounds) nextGameDialog(true);
+        else ranOutOfWordsDialog(); //Then the player have beaten the game
     }
 
     public void nextGameDialog(boolean guessedCorrect) {
-        int stringID = guessedCorrect ? R.string.guessed_correct_message : R.string.guessed_wrong_message;
+        int stringID = guessedCorrect ?
+                R.string.guessed_correct_message : R.string.guessed_wrong_message;
         AlertDialog dialog = new AlertDialog.Builder(GameActivity.this)
                 .setMessage(getResources().getString(stringID) + " " + currentWord)
                 .setNeutralButton(getResources().getString(R.string.next_button),
@@ -275,7 +271,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         changeATextView(R.id.current_word_textview, displayWord);
     }
 
-    //Had these lines a lot in my project, decided to make a method to streamline changing textviews
     public void changeATextView(int iDofView, String newText) {
         TextView textView = (TextView) findViewById(iDofView);
         textView.setText(newText);
