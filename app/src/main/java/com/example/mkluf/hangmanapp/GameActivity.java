@@ -262,6 +262,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void resetGame() {
+        round = 0;
         winScore = 0;
         changeATextView(R.id.win_score_counter, winScore + "");
         loseScore = 0;
