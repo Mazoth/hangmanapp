@@ -58,7 +58,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         round = 0; //Start at first round.
         maxRounds = gameWords.length;
         maxRounds = 2; //TODO: Remove this test condition upon delivery
-        newGame();
+        newRound();
     }
 
     @Override
@@ -89,13 +89,13 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         changeATextView(R.id.win_score_counter, winScore + "");
         changeATextView(R.id.lost_score_counter, loseScore + "");
     }
+    /*
+     * This function fills the two grid views with buttons which functions as a physical keyboard
+     * I made two grid views because I wished to be able to dynamically change the layout
+     * when the orientation is changed. This is apparent in landscape mode
+     */
 
     public void fillKeyboard() {
-
-        /*I divided the keyboards into two to easily populate the gridviews dynamically
-         *  for both landscape and portrait.
-         */
-
         GridView keyboard1 = (GridView) findViewById(R.id.keyboard_container_1);
         GridView keyboard2 = (GridView) findViewById(R.id.keyboard_container_2);
 
@@ -134,8 +134,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         keyboard2.setAdapter(new ButtonAdapter(buttonSet2));
     }
 
-    public void newGame() {
-        //Only have 10 rounds in this example, but this makes the game scale able
+    //This function starts a new round when it's called, and the values are scale able
+    public void newRound() {
         correctGuessedLetters = new ArrayList<>();
         wrongGuessedLetters = new ArrayList<>();
         fillKeyboard();
@@ -151,6 +151,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         replaceArraySymbolsInTextView(wordDisplayLetters);
     }
 
+    //This function is called when a button is pressed and the game is changed to reflect this
     public boolean guessLetter(Button selectedButton) {
         char guess = selectedButton.getText().toString().charAt(0); // Converts String to char
         selectedButton.setOnClickListener(null); //Makes the already used letter un clickable
@@ -179,6 +180,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         return false;
     }
 
+    //This function is called when a round is lost
     public void lose() {
         round++;
         loseScore++;
@@ -188,6 +190,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         else ranOutOfWordsDialog(); //Then it was the last round
     }
 
+    //This function is called when a round is won
     public void win() {
         round++;
         winScore++;
@@ -196,6 +199,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         else ranOutOfWordsDialog(); //Then the player have beaten the game
     }
 
+    //Streamlined the Dialog that pops up whenever a round is won/lost
     public void nextGameDialog(boolean guessedCorrect) {
         int stringID = guessedCorrect ?
                 R.string.guessed_correct_message : R.string.guessed_wrong_message;
@@ -205,13 +209,13 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                newGame();
+                                newRound();
                             }
                         })
                 .setOnCancelListener(new DialogInterface.OnCancelListener() {
                     @Override
                     public void onCancel(DialogInterface dialogInterface) {
-                        newGame();
+                        newRound();
                     }
                 }).create();
         Window window = dialog.getWindow();
@@ -222,6 +226,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         dialog.show();
     }
 
+    //For when we've iterated through all the available words
     public void ranOutOfWordsDialog() {
         new AlertDialog.Builder(GameActivity.this)
                 .setTitle(getResources().getString(R.string.beat_the_game_title))
@@ -249,6 +254,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 }).show();
     }
 
+    //Adds another piece to the man, while in reality just changing the picture
     public void hangTheManMore() {
         ImageView hangedMan = (ImageView) findViewById(R.id.hangman_picture_container);
         //My pictures have a pattern where the file id = "hangman_state_" + int
@@ -257,25 +263,29 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         hangedMan.setImageResource(nextPic);
     }
 
+    //Flushes all the stats
     public void resetGame() {
         round = 0;
         winScore = 0;
         changeATextView(R.id.win_score_counter, winScore + "");
         loseScore = 0;
         changeATextView(R.id.lost_score_counter, loseScore + "");
-        newGame();
+        newRound();
     }
 
+    //Replaces the [ , ] symbols in an array and makes it readable
     public void replaceArraySymbolsInTextView(String[] letters) {
         String displayWord = Arrays.toString(letters).replace("[", "").replace(",", "").replace("]", "");
         changeATextView(R.id.current_word_textview, displayWord);
     }
 
+    //Streamlined function to reduce duplicate code
     public void changeATextView(int iDofView, String newText) {
         TextView textView = (TextView) findViewById(iDofView);
         textView.setText(newText);
     }
 
+    //Changes the color of the button with the color sent as a parameter
     public void changeButtonColor(Button button, int color) {
         button.getBackground().setColorFilter(color, PorterDuff.Mode.MULTIPLY);
         button.setOnClickListener(null);
@@ -300,6 +310,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         super.onSaveInstanceState(outState);
     }
 
+    //Need a onClick method to override the default behavior, and I've set this to guess letter
     @Override
     public void onClick(View view) {
         Button selectedButton = (Button) view;
