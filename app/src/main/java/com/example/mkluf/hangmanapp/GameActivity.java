@@ -66,7 +66,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         maxWrongGuesses = 8;
         round = 0; //Start at first round.
         maxRounds = gameWords.length;
-        maxRounds = 2; //TODO: Remove this test condition upon delivery
         newRound();
     }
 
@@ -98,6 +97,24 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         changeATextView(R.id.win_score_counter, winScore + "");
         changeATextView(R.id.lost_score_counter, loseScore + "");
     }
+
+    //This function starts a new round when it's called, and the values are scale able
+    public void newRound() {
+        correctGuessedLetters = new ArrayList<>();
+        wrongGuessedLetters = new ArrayList<>();
+        fillKeyboard();
+        ImageView hangedManReset = (ImageView) findViewById(R.id.hangman_picture_container);
+        hangedManReset.setImageResource(0);
+        currentWord = gameWords[round];
+        correctGuesses = 0;
+        wrongGuesses = 0;
+        currentWordParted = currentWord.split("(?!^)");
+        wordDisplayLetters = new String[currentWordParted.length];
+        for (int i = 0; i < wordDisplayLetters.length; i++)
+            wordDisplayLetters[i] = "_"; //Fill the word with _'s
+        replaceArraySymbolsInTextView(wordDisplayLetters);
+    }
+
     /*
      * This function fills the two grid views with buttons which functions as a physical keyboard
      * I made two grid views because I wished to be able to dynamically change the layout
@@ -141,23 +158,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
         keyboard1.setAdapter(new ButtonAdapter(buttonSet1));
         keyboard2.setAdapter(new ButtonAdapter(buttonSet2));
-    }
-
-    //This function starts a new round when it's called, and the values are scale able
-    public void newRound() {
-        correctGuessedLetters = new ArrayList<>();
-        wrongGuessedLetters = new ArrayList<>();
-        fillKeyboard();
-        ImageView hangedManReset = (ImageView) findViewById(R.id.hangman_picture_container);
-        hangedManReset.setImageResource(0);
-        currentWord = gameWords[round];
-        correctGuesses = 0;
-        wrongGuesses = 0;
-        currentWordParted = currentWord.split("(?!^)");
-        wordDisplayLetters = new String[currentWordParted.length];
-        for (int i = 0; i < wordDisplayLetters.length; i++)
-            wordDisplayLetters[i] = "_"; //Fill the word with _'s
-        replaceArraySymbolsInTextView(wordDisplayLetters);
     }
 
     //This function is called when a button is pressed and the game is changed to reflect this

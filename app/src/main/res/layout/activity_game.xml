@@ -125,29 +125,29 @@
         android:id="@+id/quit_game_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/hangman_picture_container"
         android:contentDescription="@string/quit_button_desc"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true"
-        android:layout_margin="5dp"
-        android:layout_toRightOf="@+id/Score_Container"
         android:background="@null"
         android:scaleType="fitCenter"
-        android:src="@drawable/quit_icon" />
+        android:src="@drawable/quit_icon"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_above="@+id/hangman_picture_container"
+        android:layout_toEndOf="@+id/Score_Container"
+        android:layout_alignTop="@+id/Score_Container" />
 
     <ImageButton
         android:id="@+id/help_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/hangman_picture_container"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_margin="5dp"
-        android:layout_toStartOf="@+id/Score_Container"
         android:background="@null"
         android:paddingTop="5dp"
         android:scaleType="fitCenter"
         android:src="@drawable/help_icon"
-        android:contentDescription="@string/help_button_desc" />
+        android:contentDescription="@string/quit_button_desc"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_above="@+id/hangman_picture_container"
+        android:layout_toStartOf="@+id/Score_Container"
+        android:layout_alignTop="@+id/Score_Container" />
 
 </RelativeLayout>

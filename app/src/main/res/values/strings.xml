@@ -14,7 +14,7 @@
     <string name="no">No</string>
     <string name="guessed_correct_message">Correct! New word!</string>
     <string name="guessed_wrong_message">Whoops! The word was: </string>
-    <string name="won_the_game_title">I am out</string>
+    <string name="beat_the_game_title">I am out of words! The word was: </string>
     <string name="you_beat_the_game_message">You reached the end of the road! Play again?</string>
     <string name="play_again_message">! Play again?</string>
     <string name="hangman_picture_container_desc">This picture shows how hanged the man is</string>
