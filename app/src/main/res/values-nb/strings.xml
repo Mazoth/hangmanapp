@@ -25,4 +25,9 @@
     <string name="lost_score_symbol_desc">Trist smiley som indikerer gjettet feil</string>
     <string name="lost_score_counter_desc">Tall som viser antall gjettet feil</string>
     <string name="quit_button_desc">Knapp som brukes for å gå ut av appen</string>
+    <string name="rules_dialog_title">Regler for hangman</string>
+    <string name="rules_dialog_line1">Du gjetter bokstaver til du enten har løst ordet eller mannen henger. Du har </string>
+    <string name="rules_dialog_line2">mulige feil, før runden er tapt. Det er totalt </string>
+    <string name="rules_dialog_line3"> ord i dette spillet. Poengscore ser du på toppen av skjermen. Lykke til!</string>
+    <string name="thank_you_reply">Tusen takk!</string>
 </resources>

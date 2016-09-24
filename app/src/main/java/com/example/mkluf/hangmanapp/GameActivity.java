@@ -2,6 +2,7 @@ package com.example.mkluf.hangmanapp;
 
 import android.content.DialogInterface;
 import android.graphics.PorterDuff;
+import android.media.Image;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
@@ -35,6 +36,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
         ImageButton quit_game_button = (ImageButton) findViewById(R.id.quit_game_button);
+        ImageButton help_button = (ImageButton) findViewById(R.id.help_button);
         quit_game_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -49,6 +51,12 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                         })
                         .setNegativeButton(getResources().getString(R.string.no), null)
                         .setIcon(android.R.drawable.ic_dialog_alert).show();
+            }
+        });
+        help_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                helpDialogBuilder();
             }
         });
         locale = getResources().getConfiguration().locale;
@@ -252,6 +260,19 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                         resetGame();
                     }
                 }).show();
+    }
+
+    public void helpDialogBuilder() {
+        AlertDialog dialog = new AlertDialog.Builder(GameActivity.this)
+                .setTitle(getResources().getString(R.string.rules_dialog_title))
+                .setIcon(getResources().getDrawable(R.drawable.rule_book_icon))
+                .setMessage(getResources().getString(R.string.rules_dialog_line1)
+                        + " " + maxWrongGuesses + " " + getResources().getString(R.string.rules_dialog_line2)
+                        + " " + maxRounds + " " + getResources().getString(R.string.rules_dialog_line3))
+                .setNeutralButton(getResources().getString(R.string.thank_you_reply), null)
+                .create();
+        dialog.show();
+        //Window window = dialog.getWindow();
     }
 
     //Adds another piece to the man, while in reality just changing the picture

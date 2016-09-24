@@ -24,4 +24,9 @@
     <string name="lost_score_symbol_desc">This is a sad smiley indicating current amount of words guessed incorrectly</string>
     <string name="lost_score_counter_desc">This is the number indicating amount of losses</string>
     <string name="quit_button_desc">This is an icon used for exiting the game</string>
+    <string name="rules_dialog_title">The rules for hangman</string>
+    <string name="rules_dialog_line1">You guess letters until you\'ve figured out the word. If you guess </string>
+    <string name="rules_dialog_line2"> wrong letters, the man is hanged and the round is over. There\'s a total of </string>
+    <string name="rules_dialog_line3"> words in this game and the score is shown at the top of the screen.</string>
+    <string name="thank_you_reply">Thank you!</string>
 </resources>
