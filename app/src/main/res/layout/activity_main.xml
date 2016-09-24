@@ -46,14 +46,6 @@
             android:layout_margin="5dp"
             android:background="@drawable/roundedbutton"
             android:text="@string/change_language_button" />
-
-        <Button
-            android:id="@+id/rules_button"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/main_activity_button_vertical_size"
-            android:layout_margin="5dp"
-            android:background="@drawable/roundedbutton"
-            android:text="@string/rules_button" />
     </LinearLayout>
 
     <Button
