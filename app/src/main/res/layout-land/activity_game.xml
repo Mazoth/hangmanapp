@@ -99,7 +99,8 @@
         android:background="@null"
         android:layout_alignParentEnd="true"
         android:scaleType="fitCenter"
-        android:layout_alignBottom="@+id/Score_Container" />
+        android:layout_alignBottom="@+id/Score_Container"
+        android:layout_toEndOf="@+id/Score_Container" />
 
     <LinearLayout
         android:orientation="horizontal"
@@ -125,5 +126,17 @@
             android:layout_alignParentStart="false"
             android:autoText="false" />
     </LinearLayout>
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageButton"
+        android:src="@drawable/help_icon"
+        android:background="@null"
+        android:scaleType="fitCenter"
+        android:paddingTop="5dp"
+        android:layout_alignBottom="@+id/Score_Container"
+        android:layout_alignParentStart="true"
+        android:layout_toStartOf="@+id/Score_Container" />
 
 </RelativeLayout>
