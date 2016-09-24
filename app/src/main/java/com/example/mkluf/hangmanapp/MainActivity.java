@@ -23,13 +23,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this, GameActivity.class));
             }
         });
-        Button readRulesButton = (Button) findViewById(R.id.rules_button);
-        readRulesButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, RulesActivity.class));
-            }
-        });
         final Button changeLocaleButton = (Button) findViewById(R.id.change_language_button);
         changeLocaleButton.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -19,10 +19,6 @@
         </activity>
 
         <activity
-            android:name=".RulesActivity"
-            android:configChanges="locale|orientation"
-            android:parentActivityName=".MainActivity" />
-        <activity
             android:name=".GameActivity"
             android:configChanges="locale|orientation"
             android:parentActivityName=".MainActivity" />

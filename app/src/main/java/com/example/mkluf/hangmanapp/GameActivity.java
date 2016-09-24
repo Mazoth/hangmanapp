@@ -1,6 +1,7 @@
 package com.example.mkluf.hangmanapp;
 
 import android.content.DialogInterface;
+import android.content.res.Resources;
 import android.graphics.PorterDuff;
 import android.media.Image;
 import android.os.Bundle;
