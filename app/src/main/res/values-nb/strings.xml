@@ -3,6 +3,7 @@
     <string name="title">Velkommen til hangman!</string>
     <string name="play_button">Nytt spill</string>
     <string name="rules_button">Regler</string>
+    <string name="rules_title">REGLER</string>
     <string name="change_language_button">Engelsk</string>
     <string name="quit_button">Avslutt</string>
     <string name="hangman_picture_desc">Bilde av en hengt mann</string>
@@ -14,7 +15,14 @@
     <string name="no">Nei</string>
     <string name="guessed_correct_message">Riktig! Ordet var: </string>
     <string name="guessed_wrong_message">Uff da! Ordet var: </string>
-    <string name="beat_the_game_title">Spill over</string>
+    <string name="beat_the_game_title">Spill over! Ordet var: </string>
     <string name="you_beat_the_game_message">Da var jeg tom for ord! Din score ble: </string>
     <string name="play_again_message">! Nytt spill?</string>
+    <string name="hangman_picture_container_desc">Dette bildet viser status på den hengte mannen</string>
+    <string name="help_button_desc">Dette ikonet kan trykkes på og vil vise reglene</string>
+    <string name="win_score_symbol_desc">Dette ikonet er et smilefjes som indikerer gjettet riktig</string>
+    <string name="win_score_counter_desc">Tall som viser antall gjettet riktig</string>
+    <string name="lost_score_symbol_desc">Trist smiley som indikerer gjettet feil</string>
+    <string name="lost_score_counter_desc">Tall som viser antall gjettet feil</string>
+    <string name="quit_button_desc">Knapp som brukes for å gå ut av appen</string>
 </resources>

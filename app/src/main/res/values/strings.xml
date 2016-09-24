@@ -17,4 +17,11 @@
     <string name="won_the_game_title">I am out</string>
     <string name="you_beat_the_game_message">You reached the end of the road! Play again?</string>
     <string name="play_again_message">! Play again?</string>
+    <string name="hangman_picture_container_desc">This picture shows how hanged the man is</string>
+    <string name="help_button_desc">This icon is pressable and shows the rules</string>
+    <string name="win_score_symbol_desc">This is a happy smiley indicating current amount of words that are guessed correctly</string>
+    <string name="win_score_counter_desc">This number indicated number of wins total</string>
+    <string name="lost_score_symbol_desc">This is a sad smiley indicating current amount of words guessed incorrectly</string>
+    <string name="lost_score_counter_desc">This is the number indicating amount of losses</string>
+    <string name="quit_button_desc">This is an icon used for exiting the game</string>
 </resources>

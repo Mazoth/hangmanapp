@@ -229,7 +229,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     //For when we've iterated through all the available words
     public void ranOutOfWordsDialog() {
         new AlertDialog.Builder(GameActivity.this)
-                .setTitle(getResources().getString(R.string.beat_the_game_title))
+                .setTitle(getResources().getString(R.string.beat_the_game_title) + " " + currentWord)
                 .setMessage(getResources().getString(R.string.you_beat_the_game_message)
                         + " " + winScore + " - " + loseScore + getResources().getString(R.string.play_again_message))
                 .setPositiveButton(getResources().getString(R.string.yes),

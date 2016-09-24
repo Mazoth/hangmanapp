@@ -13,14 +13,15 @@
         android:layout_height="40dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:orientation="horizontal"
-        android:layout_marginTop="5dp">
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal">
 
         <ImageView
             android:id="@+id/win_score_symbol"
             android:layout_width="55dp"
             android:layout_height="match_parent"
-            android:contentDescription="A happy smiley face indicading amount of wins"
+            android:clickable="false"
+            android:contentDescription="@string/win_score_symbol_desc"
             android:src="@drawable/win_score_icon" />
 
         <TextView
@@ -28,65 +29,66 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_above="@+id/hangman_picture_container"
+            android:contentDescription="@string/win_score_counter_desc"
+            android:gravity="center_horizontal"
             android:minWidth="50dp"
             android:text="0"
             android:textColor="#669900"
             android:textSize="35sp"
-            android:textStyle="bold"
-            android:gravity="center_horizontal" />
+            android:textStyle="bold" />
 
         <ImageView
             android:id="@+id/lost_score_symbol"
             android:layout_width="55dp"
             android:layout_height="wrap_content"
-            android:contentDescription="A sad smiley face indicading amount of loses"
+            android:contentDescription="@string/lost_score_symbol_desc"
             android:src="@drawable/lost_score_icon" />
 
         <TextView
             android:id="@+id/lost_score_counter"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_above="@+id/hangman_picture_container"
+            android:contentDescription="@string/lost_score_counter_desc"
+            android:gravity="center"
             android:minWidth="50dp"
             android:text="0"
             android:textAlignment="center"
             android:textColor="#F44336"
             android:textSize="35sp"
-            android:textStyle="bold"
-            android:gravity="center" />
+            android:textStyle="bold" />
     </LinearLayout>
 
     <ImageView
         android:id="@+id/hangman_picture_container"
         android:layout_width="wrap_content"
         android:layout_height="230dp"
+        android:layout_alignEnd="@+id/Score_Container"
         android:layout_alignStart="@+id/Score_Container"
         android:layout_below="@+id/Score_Container"
-        android:contentDescription="Current hangman state"
-        android:src="@null"
-        android:longClickable="false"
         android:adjustViewBounds="false"
         android:clickable="false"
+        android:contentDescription="@string/hangman_picture_container_desc"
         android:cropToPadding="true"
+        android:longClickable="false"
         android:paddingTop="3dp"
-        android:layout_alignEnd="@+id/Score_Container" />
+        android:src="@null" />
 
     <LinearLayout
-        android:orientation="horizontal"
+        android:id="@+id/current_word_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/current_word_container"
         android:layout_below="@+id/hangman_picture_container"
-        android:gravity="center">
+        android:gravity="center"
+        android:orientation="horizontal">
 
         <TextView
+            android:id="@+id/current_word_textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Placeholder"
-            android:id="@+id/current_word_textview"
             android:layout_alignBottom="@+id/hangman_picture_container"
-            android:layout_centerHorizontal="true" />
+            android:layout_centerHorizontal="true"
+            android:text="Placeholder"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
     </LinearLayout>
 
     <LinearLayout
@@ -96,51 +98,56 @@
         android:layout_alignParentBottom="false"
         android:layout_alignParentEnd="false"
         android:layout_alignParentStart="false"
-        android:layout_below="@+id/current_word_container">
+        android:layout_below="@+id/current_word_container"
+        android:baselineAligned="false">
 
         <GridView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:id="@+id/keyboard_container_1"
-            android:numColumns="4"
-            android:layout_weight="1"
-            android:clickable="true"
-            android:descendantFocusability="beforeDescendants"/>
-
-        <GridView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/keyboard_container_2"
-            android:numColumns="4"
             android:layout_weight="1"
             android:clickable="true"
-            android:descendantFocusability="beforeDescendants"/>
+            android:descendantFocusability="beforeDescendants"
+            android:numColumns="4" />
+
+        <GridView
+            android:id="@+id/keyboard_container_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:descendantFocusability="beforeDescendants"
+            android:numColumns="4" />
 
     </LinearLayout>
 
     <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:id="@+id/quit_game_button"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:src="@drawable/quit_icon"
-        android:background="@null"
-        android:scaleType="fitCenter"
-        android:layout_toRightOf="@+id/Score_Container"
-        android:layout_above="@+id/hangman_picture_container"
-        android:paddingTop="5dp" />
-    <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/help_button"
-        android:src="@drawable/help_icon"
+        android:layout_above="@+id/hangman_picture_container"
+        android:contentDescription="@string/quit_button_desc"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_margin="5dp"
+        android:layout_toRightOf="@+id/Score_Container"
         android:background="@null"
         android:scaleType="fitCenter"
-        android:paddingTop="5dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
+        android:src="@drawable/quit_icon" />
+
+    <ImageButton
+        android:id="@+id/help_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_above="@+id/hangman_picture_container"
-        android:layout_toStartOf="@+id/Score_Container" />
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_margin="5dp"
+        android:layout_toStartOf="@+id/Score_Container"
+        android:background="@null"
+        android:paddingTop="5dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/help_icon"
+        android:contentDescription="@string/quit_button_desc" />
 
 </RelativeLayout>
